@@ -1,8 +1,8 @@
 pipeline {
-    agent any
+
     stages {
         stage('checkout') {
-        
+        agent { label 'slave1' }
             
             steps {
 		sh 'rm -rf hello-world-war'
@@ -11,7 +11,7 @@ pipeline {
         }
 	stage('Build') {
         
-            
+            agent { label 'slave1' }
             steps {
 		sh 'mvn clean package'
             }
