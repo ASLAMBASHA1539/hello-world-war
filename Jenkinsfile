@@ -1,19 +1,20 @@
 pipeline {
-	agent none
+    agent { 
+        label 'slave1'
+    }
     stages {
-        stage('checkout') {
-        agent { label 'slave1' }
-            
+        stage('Checkout') {
             steps {
-		sh 'rm -rf hello-world-war'
-                sh 'git clone https://github.com/ASLAMBASHA1539/hello-world-war.git'
+                sh 'rm -rf hello-world-war '
+                sh 'git clone https://github.com/shb18911/hello-world-war.git'
             }
         }
-	stage('Build') {
-        
-            agent { label 'slave1' }
+        stage('Build') {
             steps {
-		sh 'mvn clean package'
+                dir('hello-world-war') {
+                    sh 'ls'
+                    sh 'docker build -t ubuntu:version1 .'
+                }
             }
         }
     }
